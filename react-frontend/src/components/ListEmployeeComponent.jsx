@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
+import EmployeeService from '../services/EmployeeService'
 
-class ListEmployeeComponent extends Component {
+export default class ListEmployeeComponent extends Component {
     // Props are being passed to super class (Component)
     constructor(props) {
         super(props)
@@ -9,7 +10,17 @@ class ListEmployeeComponent extends Component {
             employees: []
         }
     }
-
+    /*
+        "Called immediately after component is mounted.
+        Setting state here will cause re-rendering."
+        Best place to call a rest api.
+    */
+    componentDidMount(){
+        // Making api call through service layer component.
+        EmployeeService.getEmployees().then((response) => {
+            this.setState({ employees: response.data })
+        });
+    }
     render(){
         // JSX code, Similar to Jinja
         // className: In react use "className" instead of "class" like html, then specify class name.
@@ -21,9 +32,9 @@ class ListEmployeeComponent extends Component {
             <div>
                 <h2 className="text-center">Employees List</h2>
                 <div className="row">
-                    <table clasName="table table-striped table-bordered">
+                    <table className="table table-striped table-bordered">
                         <thead>
-                            <tr>
+                            <tr> 
                                 <th>Employee</th>
                                 <th>Employee First Name</th>
                                 <th>Employee Last Name</th>
