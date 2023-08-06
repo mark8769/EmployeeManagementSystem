@@ -30,6 +30,23 @@ class ListEmployeeComponent extends Component {
                                 <th>Employee Action</th>
                             </tr>
                         </thead>
+                        <tbody>
+                            {/* Make api call to fill this in. 
+                                Here we are dynamically adding the employees to the website.
+                                The map() function is an ES6 feature in Javascript.
+                            */}
+                            
+                            {
+                                this.state.employees.map(
+                                    employee => 
+                                    <tr key={employee.id}>
+                                        <td>{ employee.firstName }</td>
+                                        <td>{ employee.lastName }</td>
+                                        <td>{ employee.emailId }</td>
+                                    </tr>
+                                )
+                            }
+                        </tbody>
                     </table>
                 </div>
             </div>
