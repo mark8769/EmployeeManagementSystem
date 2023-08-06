@@ -1,0 +1,8 @@
+# Ignore java compiled files.
+*.class
+# Ignore intellij configurations files.
+*.idea/
+# Ignore Maven/Spring builds.
+target/
+# Ignore mac dot files (icon window placements)
+*.DS_Store
