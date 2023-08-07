@@ -9,6 +9,8 @@ export default class ListEmployeeComponent extends Component {
         this.state ={
             employees: []
         }
+        // Binding addEmployee method
+        this.addEmployee = this.addEmployee.bind(this);
     }
     /*
         "Called immediately after component is mounted.
@@ -21,6 +23,16 @@ export default class ListEmployeeComponent extends Component {
             this.setState({ employees: response.data })
         });
     }
+    // I guess this is how you define functions inside class components.
+    addEmployee(){
+        // https://codesource.io/how-to-use-this-props-history-push-on-your-react-project/
+        // From configured BrowserRouter in app.js
+        // Have configured routes. 
+        // Passes history object through props for each route.
+        // History object lets us manually configure the history in the browser.
+        this.props.history.push("/addEmployee");
+    }
+
     render(){
         // JSX code, Similar to Jinja
         // className: In react use "className" instead of "class" like html, then specify class name.
@@ -31,6 +43,9 @@ export default class ListEmployeeComponent extends Component {
             // I think another popular one to use would be Material UI.
             <div>
                 <h2 className="text-center">Employees List</h2>
+                <div className="row">
+                    <button className="btn btn-primary" onClick={this.addEmployee}>Add Employee</button>
+                </div>
                 <div className="row">
                     <table className="table table-striped table-bordered">
                         <thead>
