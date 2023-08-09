@@ -10,7 +10,7 @@ export default class ListEmployeeComponent extends Component {
             employees: []
         }
         // Binding addEmployee method
-        this.addEmployee = this.addEmployee.bind(this);
+        // this.addEmployee = this.addEmployee.bind(this);
     }
     /*
         "Called immediately after component is mounted.
@@ -30,7 +30,13 @@ export default class ListEmployeeComponent extends Component {
         // Have configured routes. 
         // Passes history object through props for each route.
         // History object lets us manually configure the history in the browser.
+
+        // Can only be called from functional components in react (something about hooks and not needing class components anymore)
+        // this.props.history.push("/addEmployee");
+        // let navigate = useHistory();
         this.props.history.push("/addEmployee");
+        window.location.reload() // This is a quick fix, not sure why the page isn't re-rendering....
+        // this.props.navigate("/addEmployee")
     }
 
     render(){
@@ -44,7 +50,7 @@ export default class ListEmployeeComponent extends Component {
             <div>
                 <h2 className="text-center">Employees List</h2>
                 <div className="row">
-                    <button className="btn btn-primary" onClick={this.addEmployee}>Add Employee</button>
+                    <button className="btn btn-primary" onClick={this.addEmployee.bind(this)}>Add Employee</button>
                 </div>
                 <div className="row">
                     <table className="table table-striped table-bordered">
