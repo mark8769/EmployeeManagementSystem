@@ -4,10 +4,7 @@ import java.util.List;
 import com.example.demo.model.Employee;
 import com.example.demo.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
 @RestController
@@ -26,5 +23,11 @@ public class EmployeeController {
     @GetMapping("/employees")
     public List<Employee> getAllEmployees(){
         return employeeRepository.findAll();
+    }
+
+    // Create new employee in db rest api
+    @PostMapping("/addEmployee")
+    public Employee createEmployee(@RequestBody Employee employee){
+        return employeeRepository.save(employee);
     }
 }
