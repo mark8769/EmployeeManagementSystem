@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import ListEmployeeComponent from './ListEmployeeComponent';
+import EmployeeService from '../services/EmployeeService';
 
 class CreateEmployeeComponent extends Component{
     constructor(props) {
@@ -44,10 +45,16 @@ class CreateEmployeeComponent extends Component{
             emailId: this.state.emailId
         };
         console.log("Employee " + JSON.stringify(employee));
+        // Returns promise, so use 'then'
+        EmployeeService.createEmployee(employee).then(res => {
+            this.props.history.push("/employees");
+            window.location.reload();
+        });
+
     }
     cancel(){
         // Navigate to employees page
-        this.props.history.push("/employees")
+        this.props.history.push("/employees");
     }
 
     render(){
@@ -81,7 +88,7 @@ class CreateEmployeeComponent extends Component{
                                          onChange={this.changeEmailIdHandler}/>
                                     </div>
                                     <button className="btn btn-success" onClick={this.saveEmployee}>Save</button>
-                                    <button className="btn btn-danger" onClick={this.cancel.bind(this)} style={{marginLeft: "10x"}}>Cancel</button>
+                                    <button className="btn btn-danger" onClick={this.cancel.bind(this)} style={{marginLeft: "10px"}}>Cancel</button>
                                 </form>
                             </div>
                         </div>
