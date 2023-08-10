@@ -1,9 +1,12 @@
 package com.example.demo.controller;
 
 import java.util.List;
+
+import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.Employee;
 import com.example.demo.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
@@ -29,5 +32,21 @@ public class EmployeeController {
     @PostMapping("/addEmployee")
     public Employee createEmployee(@RequestBody Employee employee){
         return employeeRepository.save(employee);
+    }
+
+    // get employee by id rest api
+    // Map url param to java variable that's going to be used inside method.
+    @GetMapping("/employees/{id}")
+    public ResponseEntity<Employee> getEmployeeById(@PathVariable Long id){
+        // Throw exception. FindByID returns optional (meaning if not found, then returns nothing)
+        // This results in an error.
+        // Lambda Expression
+        // () -> someStatemens
+        Employee employee = employeeRepository.findById(id)
+                .orElseThrow( () -> new ResourceNotFoundException("Employee not exist with id: " + id) );
+
+        // Need to return Http Status(ok = 200), so need to return ResponseEntity along with Employee entity.
+        // More info here: https://www.baeldung.com/spring-response-entity#:~:text=ResponseEntity%20represents%20the%20whole%20HTTP,takes%20care%20of%20the%20rest.
+        return ResponseEntity.ok(employee);
     }
 }
