@@ -10,6 +10,9 @@ public class Employee {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long id;
+    // Column annotations are how they are shown inside the tables.
+    // When passing in JSON to POST or PUT methods, you will
+    // still have to use the names defined here.
     @Column(name="first_name")
     private String firstName;
     @Column(name="last_name")
