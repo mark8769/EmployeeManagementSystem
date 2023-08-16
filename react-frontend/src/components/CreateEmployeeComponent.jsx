@@ -10,6 +10,7 @@ class CreateEmployeeComponent extends Component{
         // These "instance variables" will have setters and getters you don't need to define.
         // I am assuming these are implemented in the Component class we are extending.
         this.state = {
+            id: this.props.match.params.id,
             firstName: "",
             lastName: "",
             emailId: ""
@@ -22,7 +23,27 @@ class CreateEmployeeComponent extends Component{
         this.changeLastNameHandler = this.changeLastNameHandler.bind(this);
         this.saveEmployee = this.saveEmployee.bind(this);
     }
-
+    /*
+        If -1 is passed then we leave our form empty.
+        Meaning we want to add/create a new employee into the database.
+        Else if an id was passed, then we want to update a 
+        current employees information. Fill in the form with 
+        respective employee info to update.
+    */
+    componentDidMount(){
+        if (this.state.id == -1){
+            return
+        }else{
+            // Axis methods return a "promise" Javascript nuance, so have to catch with then "when response returns"
+            EmployeeService.getEmployeeById(this.state.id).then( (res) => {
+                let employee = res.data;
+                this.setState({firstName: employee.firstName, 
+                    lastName: employee.lastName,
+                    emailId: employee.emailId
+                })
+            });
+        }
+    }
     // Using an arrow function. Look into these a little bit more.
     // Also notice the lack of this.instance_function like in Python. Blend of Java and Python
     changeFirstNameHandler = (event) => {
@@ -36,21 +57,32 @@ class CreateEmployeeComponent extends Component{
     changeEmailIdHandler = (event) => {
         this.setState({emailId: event.target.value});
     }
+    /*
+        Either updating an employee or creating a new employee based on id passed.
+    */
     saveEmployee = (e) => {
         e.preventDefault();
-        
         let employee = {
+            id: this.props.match.params.id,
             firstName: this.state.firstName,
             lastName: this.state.lastName,
             emailId: this.state.emailId
         };
         console.log("Employee " + JSON.stringify(employee));
-        // Returns promise, so use 'then'
-        EmployeeService.createEmployee(employee).then(res => {
-            this.props.history.push("/employees");
-            window.location.reload();
-        });
 
+        if (this.state.id == -1){
+            // Returns promise, so use 'then'
+            EmployeeService.createEmployee(employee).then(res => {
+                this.props.history.push("/employees");
+                window.location.reload();
+            });
+        }else{
+            EmployeeService.updateEmployee(employee, this.state.id).then( (res) => {
+                console.log("Employee updated.");
+                this.props.history.push("/employees");
+                window.location.reload();
+            });
+        }
     }
     cancel(e){
         // Dont want params to be passed into url. Also prevents reload (when form is submitted, sigh....)
