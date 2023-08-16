@@ -19,6 +19,9 @@ class EmployeeService {
         // Return a promise
         return axios.put(EMPLOYEE_API_BASE_URL + `updateEmployee/${id}`, employee);
     }
+    deleteEmployee(id){
+        return axios.delete(EMPLOYEE_API_BASE_URL + `deleteEmployee/${id}`);
+    }
 }
 
 // Exporting object of class (denoted by new keyword)
