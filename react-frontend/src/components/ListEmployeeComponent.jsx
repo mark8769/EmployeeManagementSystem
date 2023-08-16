@@ -12,6 +12,7 @@ export default class ListEmployeeComponent extends Component {
         // Binding addEmployee method
         // this.addEmployee = this.addEmployee.bind(this);
         this.editEmployee = this.editEmployee.bind(this);
+        this.deleteEmployee = this.deleteEmployee.bind(this);
     }
     editEmployee(id){
         //console.log("Something is wrong here")
@@ -43,6 +44,11 @@ export default class ListEmployeeComponent extends Component {
         this.props.history.push("/addEmployee/-1");
         window.location.reload() // This is a quick fix, not sure why the page isn't re-rendering....
         // this.props.navigate("/addEmployee")
+    }
+    deleteEmployee(id){
+        EmployeeService.deleteEmployee(id).then( (res) => {
+            this.setState({employees: this.state.employees.filter(employee => employee.id !== id)})
+        });
     }
 
     render(){
@@ -82,7 +88,10 @@ export default class ListEmployeeComponent extends Component {
                                         <td>{ employee.lastName }</td>
                                         <td>{ employee.emailId }</td>
                                         {/* */}
-                                        <td><button onClick={ () => this.editEmployee(employee.id) } className="btn btn-info">Update</button></td>
+                                        <td>
+                                            <button onClick={ () => this.editEmployee(employee.id) } className="btn btn-info">Update</button>
+                                            <button style={{marginLeft: "10px"}}onClick={ () => this.deleteEmployee(employee.id) } className="btn btn-danger">Delete</button>
+                                        </td>
                                     </tr>
                                 )
                             }
