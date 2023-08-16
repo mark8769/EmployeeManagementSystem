@@ -52,9 +52,14 @@ class CreateEmployeeComponent extends Component{
         });
 
     }
-    cancel(){
+    cancel(e){
+        // Dont want params to be passed into url. Also prevents reload (when form is submitted, sigh....)
+        // Might as well learn how to use functional components, managing state in class components seems like a hassle.
+        // And no more updates for it anyway....
+        e.preventDefault(); 
         // Navigate to employees page
         this.props.history.push("/employees");
+        window.location.reload();
     }
 
     render(){

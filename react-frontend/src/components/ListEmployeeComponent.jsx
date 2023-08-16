@@ -11,6 +11,12 @@ export default class ListEmployeeComponent extends Component {
         }
         // Binding addEmployee method
         // this.addEmployee = this.addEmployee.bind(this);
+        this.editEmployee = this.editEmployee.bind(this);
+    }
+    editEmployee(id){
+        //console.log("Something is wrong here")
+        this.props.history.push(`/updateEmployee/${id}`)
+        window.location.reload();
     }
     /*
         "Called immediately after component is mounted.
@@ -59,7 +65,7 @@ export default class ListEmployeeComponent extends Component {
                                 <th>Employee</th>
                                 <th>Employee First Name</th>
                                 <th>Employee Last Name</th>
-                                <th>Employee Action</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -75,6 +81,8 @@ export default class ListEmployeeComponent extends Component {
                                         <td>{ employee.firstName }</td>
                                         <td>{ employee.lastName }</td>
                                         <td>{ employee.emailId }</td>
+                                        {/* */}
+                                        <td><button onClick={ () => this.editEmployee(employee.id) } className="btn btn-info">Update</button></td>
                                     </tr>
                                 )
                             }
