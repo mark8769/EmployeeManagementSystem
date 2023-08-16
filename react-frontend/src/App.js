@@ -28,9 +28,10 @@ function App() {
                 <Route path="/addEmployee" element={<CreateEmployeeComponent/>} /> */}
                 <Route path = "/" exact component = {ListEmployeeComponent}></Route>
                 <Route path = "/employees" exact component = {ListEmployeeComponent}></Route>
-                <Route path = "/addEmployee" exact component = {CreateEmployeeComponent}></Route>
+                {/* Pass in -1 for adding an employee, positive number for udpating an employee. */}
+                <Route path = "/addEmployee/:id" exact component = {CreateEmployeeComponent}></Route>
                 {/* Pass in id in url path. */}
-                <Route path = "/updateEmployee/:id" exact component = {UpdateEmployeeComponent}></Route>
+                {/* <Route path = "/updateEmployee/:id" exact component = {UpdateEmployeeComponent}></Route> */}
               </Switch>
               {/* </Routes> */}
               {/* Get rid of this at some point (wrong way to do this) */}
