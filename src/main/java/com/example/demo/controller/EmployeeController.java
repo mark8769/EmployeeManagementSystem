@@ -1,10 +1,13 @@
 package com.example.demo.controller;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.List;
 
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.Employee;
 import com.example.demo.repository.EmployeeRepository;
+import com.fasterxml.jackson.datatype.jsr310.deser.key.YearMonthKeyDeserializer;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -65,5 +68,18 @@ public class EmployeeController {
         Employee updatedEmployee = employeeRepository.save(employee);
         // Return updated employee.
         return ResponseEntity.ok(updatedEmployee);
+    }
+
+    @DeleteMapping("/deleteEmployee/{id}")
+    public ResponseEntity< Map<String, Boolean> > deleteEmployee(@PathVariable Long id){
+
+        Employee employee = employeeRepository.findById(id)
+                .orElseThrow( () -> new ResourceNotFoundException("Employee does not exist with id: " + id));
+        // Delete method does not return anything, so return map. JSON Response.
+        employeeRepository.delete(employee);
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("deleted", Boolean.TRUE);
+        return ResponseEntity.ok(response);
+
     }
 }
