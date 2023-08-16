@@ -15,7 +15,7 @@ export default class ListEmployeeComponent extends Component {
     }
     editEmployee(id){
         //console.log("Something is wrong here")
-        this.props.history.push(`/updateEmployee/${id}`)
+        this.props.history.push(`/addEmployee/${id}`)
         window.location.reload();
     }
     /*
@@ -40,7 +40,7 @@ export default class ListEmployeeComponent extends Component {
         // Can only be called from functional components in react (something about hooks and not needing class components anymore)
         // this.props.history.push("/addEmployee");
         // let navigate = useHistory();
-        this.props.history.push("/addEmployee");
+        this.props.history.push("/addEmployee/-1");
         window.location.reload() // This is a quick fix, not sure why the page isn't re-rendering....
         // this.props.navigate("/addEmployee")
     }
