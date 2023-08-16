@@ -93,6 +93,15 @@ class CreateEmployeeComponent extends Component{
         this.props.history.push("/employees");
         window.location.reload();
     }
+    getTitle(){
+        // Can also return HTML without any weird syntax
+        // E.g. return <h3 className="text-center">Add Employee</h3>
+        if (this.state.id == -1){
+            return "Add Employee";
+        }else{
+            return "Update Employee";
+        }
+    }
 
     render(){
         return(
@@ -100,7 +109,9 @@ class CreateEmployeeComponent extends Component{
                 <div className="container">
                     <div className="row">
                         <div className="card col-md-6 offset-md-3 offset-md-3">
-                            <h3 className="text-center">Employee</h3>
+                            {/* In JSX can intermix Javascript inline inside html */}
+                            <h3 className="text-center">{this.getTitle()}</h3>
+
                             <div className='card-body"'>
                                 <form>
                                     <div className='form-group'>
