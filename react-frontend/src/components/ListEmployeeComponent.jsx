@@ -13,11 +13,7 @@ export default class ListEmployeeComponent extends Component {
         // this.addEmployee = this.addEmployee.bind(this);
         this.editEmployee = this.editEmployee.bind(this);
         this.deleteEmployee = this.deleteEmployee.bind(this);
-    }
-    editEmployee(id){
-        //console.log("Something is wrong here")
-        this.props.history.push(`/addEmployee/${id}`)
-        window.location.reload();
+        this.viewEmployee = this.viewEmployee.bind(this);
     }
     /*
         "Called immediately after component is mounted.
@@ -45,10 +41,19 @@ export default class ListEmployeeComponent extends Component {
         window.location.reload() // This is a quick fix, not sure why the page isn't re-rendering....
         // this.props.navigate("/addEmployee")
     }
+    editEmployee(id){
+        //console.log("Something is wrong here")
+        this.props.history.push(`/addEmployee/${id}`)
+        window.location.reload();
+    }
     deleteEmployee(id){
         EmployeeService.deleteEmployee(id).then( (res) => {
             this.setState({employees: this.state.employees.filter(employee => employee.id !== id)})
         });
+    }
+    viewEmployee(id){
+        this.props.history.push(`/viewEmployee/${id}`);
+        window.location.reload();
     }
 
     render(){
@@ -91,6 +96,7 @@ export default class ListEmployeeComponent extends Component {
                                         <td>
                                             <button onClick={ () => this.editEmployee(employee.id) } className="btn btn-info">Update</button>
                                             <button style={{marginLeft: "10px"}}onClick={ () => this.deleteEmployee(employee.id) } className="btn btn-danger">Delete</button>
+                                            <button style={{marginLeft: "10px"}} onClick={ () => this.viewEmployee(employee.id) }  className="btn btn-info">View</button>
                                         </td>
                                     </tr>
                                 )
