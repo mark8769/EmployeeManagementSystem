@@ -12,6 +12,7 @@ import HeaderComponent from './components/HeaderComponent';
 import FooterComponent from './components/FooterComponent';
 import CreateEmployeeComponent from './components/CreateEmployeeComponent';
 import UpdateEmployeeComponent from './components/UpdateEmployeeComponent';
+import ViewEmployeeComponent from './components/ViewEmployeeComponent';
 
 // https://blog.logrocket.com/react-router-v6-guide/
 function App() {
@@ -32,6 +33,7 @@ function App() {
                 <Route path = "/addEmployee/:id" exact component = {CreateEmployeeComponent}></Route>
                 {/* Pass in id in url path. */}
                 {/* <Route path = "/updateEmployee/:id" exact component = {UpdateEmployeeComponent}></Route> */}
+                <Route path = "/viewEmployee/:id" exact component = {ViewEmployeeComponent}></Route>
               </Switch>
               {/* </Routes> */}
               {/* Get rid of this at some point (wrong way to do this) */}
